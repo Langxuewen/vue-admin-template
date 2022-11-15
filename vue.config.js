@@ -43,6 +43,7 @@ module.exports = {
     // it can be accessed in index.html to inject the correct title.
     name: name,
     resolve: {
+      // 自定义别名简化引用路径，方便全局使用
       alias: {
         '@': resolve('src')
       }
