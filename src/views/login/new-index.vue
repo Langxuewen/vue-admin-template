@@ -18,6 +18,15 @@
                             <i v-else slot="suffix" @click="eyeFlag = !eyeFlag" class="iconfont icon-eye-close"></i>
                         </el-input>
                     </el-form-item>
+                    <el-form-item>
+                        <div class="single-line">
+                            <el-checkbox v-model="remember">记住我</el-checkbox>
+                            <span class="msg-login">短信验证登录</span>
+                        </div>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="success" plain class="login-btn">登录</el-button>
+                    </el-form-item>
                 </el-form>
             </div>
         </div>
@@ -57,6 +66,7 @@ export default {
             passWord: [{ required: true, trigger: 'blur', validator: validatePassWord }]
         },
         eyeFlag: true,
+        remember: false,
     }
   },
   computed: {
@@ -74,6 +84,8 @@ export default {
 $bg:#e1ede1;
 $system_title: #6a645c;
 $input_height: 50px;
+$input_width: 400px;
+$blue_font: #409EFF;
 
 .login-container {
     height: 100vh;
@@ -111,7 +123,7 @@ $input_height: 50px;
         justify-content: center;
         align-items: center;
         .login-form {
-            width: 400px;
+            width: $input_width;
             .el-input__inner {
                 height: $input_height;
             }
@@ -123,6 +135,25 @@ $input_height: 50px;
             .iconfont:hover {
                 cursor: pointer;
                 color: #515151;
+            }
+            .single-line {
+                height: $input_height;
+                display: flex;
+                justify-content: space-between;
+                .msg-login {
+                    color: #606266;
+                }
+                .msg-login:hover {
+                    cursor: pointer;
+                    color: $blue_font;
+                    text-decoration: underline;
+                }
+            }
+            .login-btn {
+                width: $input_width;
+                height: $input_height;
+                font-size: 20px;
+                font-weight: 600;
             }
         }
     }
