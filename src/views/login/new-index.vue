@@ -151,7 +151,7 @@ $blue_font: #409EFF;
                 color: $system_title;
             }
             .login-text {
-                font-size: clamp(1.8rem, 2.6vw, 2.8rem);
+                font-size: clamp(1.8rem, 2.4vw, 2.6rem);
                 font-weight: 600;
             }
             .forget-pwd {
