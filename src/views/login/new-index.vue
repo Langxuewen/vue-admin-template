@@ -9,6 +9,12 @@
             </div>
             <div class="right">
                 <el-form :model="loginForm" :rules="loginRules" ref="loginForm" label-width="auto" class="login-form">
+                    <el-form-item>
+                        <div class="single-line">
+                            <div class="login-text">登录</div>
+                            <span>没有账号？<span class="blue underline">点此注册</span></span>
+                        </div>
+                    </el-form-item>
                     <el-form-item prop="userName">
                         <el-input type="text" v-model="loginForm.userName" placeholder="请输入账号"></el-input>
                     </el-form-item>
@@ -21,12 +27,13 @@
                     <el-form-item>
                         <div class="single-line">
                             <el-checkbox v-model="remember">记住我</el-checkbox>
-                            <span class="msg-login">短信验证登录</span>
+                            <span class="underline">短信验证登录</span>
                         </div>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="success" plain class="login-btn">登录</el-button>
                     </el-form-item>
+                    <div class="forget-pwd underline">忘记密码？</div>
                 </el-form>
             </div>
         </div>
@@ -137,17 +144,20 @@ $blue_font: #409EFF;
                 color: #515151;
             }
             .single-line {
-                height: $input_height;
+                line-height: $input_height;
                 display: flex;
                 justify-content: space-between;
-                .msg-login {
-                    color: #606266;
-                }
-                .msg-login:hover {
-                    cursor: pointer;
-                    color: $blue_font;
-                    text-decoration: underline;
-                }
+                font-size: 15px;
+                color: $system_title;
+            }
+            .login-text {
+                font-size: clamp(1.8rem, 2.6vw, 2.8rem);
+                font-weight: 600;
+            }
+            .forget-pwd {
+                text-align: center;
+                font-size: 15px;
+                color: $system_title;
             }
             .login-btn {
                 width: $input_width;
@@ -156,6 +166,14 @@ $blue_font: #409EFF;
                 font-weight: 600;
             }
         }
+    }
+    .blue {
+        color: $blue_font;
+    }
+    .underline:hover {
+        color: $blue_font;
+        cursor: pointer;
+        text-decoration: underline;
     }
 }
 </style>
