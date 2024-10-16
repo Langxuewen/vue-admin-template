@@ -15,11 +15,11 @@
                             <span>没有账号？<span class="blue underline">点此注册</span></span>
                         </div>
                     </el-form-item>
-                    <el-form-item prop="userName">
-                        <el-input type="text" v-model="loginForm.userName" placeholder="请输入账号"></el-input>
+                    <el-form-item prop="username">
+                        <el-input type="text" v-model="loginForm.username" placeholder="请输入账号"></el-input>
                     </el-form-item>
-                    <el-form-item prop="passWord">
-                        <el-input :type="eyeFlag ? 'password' : 'text'" v-model="loginForm.passWord" placeholder="请输入密码">
+                    <el-form-item prop="password">
+                        <el-input :type="eyeFlag ? 'password' : 'text'" v-model="loginForm.password" placeholder="请输入密码">
                             <i v-if="eyeFlag" slot="suffix" @click="eyeFlag = !eyeFlag" class="iconfont icon-eye"></i>
                             <i v-else slot="suffix" @click="eyeFlag = !eyeFlag" class="iconfont icon-eye-close"></i>
                         </el-input>
@@ -31,7 +31,7 @@
                         </div>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="success" plain class="login-btn">登录</el-button>
+                        <el-button type="success" :loading="loading" plain @click="handleLogin" class="login-btn">登录</el-button>
                     </el-form-item>
                     <div class="forget-pwd underline">忘记密码？</div>
                 </el-form>
@@ -65,15 +65,17 @@ export default {
     }
     return {
         loginForm: {
-            userName: '',
-            passWord: ''
+            username: 'admin',
+            password: '111111'
         },
         loginRules: {
-            userName: [{ required: true, trigger: 'blur', validator: validateUserName }],
-            passWord: [{ required: true, trigger: 'blur', validator: validatePassWord }]
+            username: [{ required: true, trigger: 'blur', validator: validateUserName }],
+            password: [{ required: true, trigger: 'blur', validator: validatePassWord }]
         },
         eyeFlag: true,
         remember: false,
+        loading: false,
+        redirect: undefined
     }
   },
   computed: {
@@ -81,7 +83,30 @@ export default {
       return defaultSettings.title
     }
   },
+  watch: {
+    $route: {
+      handler: function(route) {
+        this.redirect = route.query && route.query.redirect
+      },
+      immediate: true
+    }
+  },
   methods: {
+    handleLogin() {
+        this.$refs['loginForm'].validate((valid) => {
+            if (valid) {
+                this.loading = true;
+                this.$store.dispatch('user/login', this.loginForm).then(() => {
+                    this.$router.push({ path: this.redirect || '/' }) // 登录成功之后重定向到首页
+                    this.loading = false
+                }).catch(() => {
+                    this.loading = false
+                })
+            } else {
+                return false;
+            }
+        })
+    }
   }
 }
 
